@@ -8,8 +8,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/Dotnet.gitignore
 
 bin/Debug/
-obj/Debug/ 
-
+obj/Debug/
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
