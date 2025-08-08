@@ -1,0 +1,151 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarManufacturersMVC.Pages.Cars.EditModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+    <style>
+        .edit-container {
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+        .edit-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        .edit-photo {
+            margin: 75px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .edit-photo img {
+            margin: 0;
+            object-fit: cover;
+            border: 3px solid #b9615f;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);
+            width: 1200px;
+            height: 450px;
+        }
+        .photo-preview {
+            margin-top: 0;
+        }
+        .preview-title {
+            color: #7ce7ed;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Редактирование автомобиля</h1>
+
+        @if (Model.Error == null) {
+                <div class="edit-container">
+                    <div class="edit-form">
+                        <form method="post" action="" id="edit-form">
+                            <div class="form-group">
+                                <label for="id">ID:</label>
+                                <input type="number" id="id" name="id" readonly value="@Model.Car!.Id" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name">Название:</label>
+                                <input type="text" id="name" name="name" minlength="1" maxlength="200" required value="@Model.Car!.Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="class">Класс:</label>
+                                <input type="text" id="class" name="class" minlength="1" maxlength="100" required value="@Model.Car!.Class" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="model">Модель:</label>
+                                <input type="text" id="model" name="model" minlength="1" maxlength="100" required value="@Model.Car!.Model" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country">Страна:</label>
+                                <input type="text" id="country" name="country" minlength="1" maxlength="100" required value="@Model.Car!.Country" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="productionYears">Годы производства:</label>
+                                <input type="text" id="productionYears" name="productionYears" minlength="1" maxlength="50" required value="@Model.Car!.ProductionYears" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="photoUrl">URL фото:</label>
+                                <input type="text" id="photoUrl" name="photoUrl" maxlength="500" value="@(Model.Car!.PhotoUrl ?? "")" onchange="updatePhotoPreview()" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="manufacturer">Производитель:</label>
+                                <select id="manufacturer" name="manufacturerId" asp-items="Model.ManufacturersOptions" asp-for="@Model.Car.ManufacturerId"></select>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="edit-photo">
+                        <div class="preview-title">Предварительный просмотр фото</div>
+                        <div class="photo-preview" id="photoPreview">
+                            @if (!string.IsNullOrEmpty(Model.Car!.PhotoUrl))
+                            {
+                                <img src="~/@Model.Car.PhotoUrl" alt="@Model.Car.Name" />
+                            }
+                            else
+                            {
+                                <p style="color: #666;">Фото не выбрано</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            <div class="nav-links" style="margin: 0 0 0 0;">
+                <button type="submit" form="edit-form" class="cybr-btn">
+                    Сохранить
+                    <span aria-hidden class="cybr-btn__glitch">Сохранить</span>
+                    <span aria-hidden class="cybr-btn__tag">SAVE</span>
+                </button>
+                
+                <a asp-page="/Cars/Index" class="cybr-btn">
+                    Вернуться к списку
+                    <span aria-hidden class="cybr-btn__glitch">Вернуться к списку</span>
+                    <span aria-hidden class="cybr-btn__tag">BACK</span>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="error-form" style="background: rgba(0, 0, 0, 0.8); border: 2px solid #b9615f; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 600px; width: 100%; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);">
+                <h2 style="color: #7ce7ed; margin-bottom: 1rem;">Ошибка</h2>
+                <p style="color: #fff;">@Model.Error</p>
+            </div>
+        }
+    </div>
+
+    <script>
+        function updatePhotoPreview() {
+            const photoUrl = document.getElementById('photoUrl').value;
+            const photoPreview = document.getElementById('photoPreview');
+            
+            if (photoUrl && photoUrl.trim() !== '') {
+                photoPreview.innerHTML = `<img src="~/${photoUrl}" alt="Preview" style="width: 1200px; height: 450px; object-fit: cover; border: 3px solid #b9615f; border-radius: 12px; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" /><p style="color: #666; display: none;">Фото не найдено</p>`;
+
+            } else {
+                photoPreview.innerHTML = '<p style="color: #666;">Фото не выбрано</p>';
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,96 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarManufacturersMVC.Pages.Cars.DetailsModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+</head>
+<body>
+    <div class="container">
+        @if (Model.Error == null) {
+            <h1 class="page-title" >@Model.Car!.Name</h1>
+            
+            <div style="display: flex; gap: 2rem; max-width: 700px;">
+                <div class="details-info" style="flex: 1; width: 460px; height: 450px; min-width: 0;">
+                    <div class="details-header">
+                        <h2 style="color: #7ce7ed; margin-bottom: 1rem;">Детали автомобиля</h2>
+                    </div>
+                    
+                    <div class="details-info-container">
+                        <div class="form-group">
+                            <label>ID:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.Id</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Название:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.Name</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Класс:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.Class</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Модель:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.Model</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Страна:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.Country</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Годы производства:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.ProductionYears</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Производитель:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.Manufacturer!.Name</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Страна производителя:</label>
+                            <p style="color: #fff; margin: 0;">@Model.Car.Manufacturer.Country</p>
+                        </div>
+                    </div>
+                </div>
+                
+                @if (!string.IsNullOrEmpty(Model.Car.PhotoUrl))
+                {
+                    <div class="details-photo" style="flex: 1; width: 400px; height: 450px;">
+                        <div class="details-header">
+                            <h2 style="color: #7ce7ed; margin-bottom: 1rem;">Фото автомобиля</h2>
+                        </div>
+                        <img src="~/@Model.Car.PhotoUrl" alt="@Model.Car.Name" style="width: 1200px; height: 450px; object-fit: cover;
+            border: 3px solid #b9615f;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);"/>
+                    </div>
+                }
+            </div>
+
+            <div class="nav-links" style="margin: 100px 0 0 0;">
+                <a asp-page="/Cars/Index" class="cybr-btn">
+                    Вернуться к списку
+                    <span aria-hidden class="cybr-btn__glitch">Вернуться к списку</span>
+                    <span aria-hidden class="cybr-btn__tag">BACK</span>
+                </a>
+            </div>
+        }
+        else {
+            <div class="error-form" style="background: rgba(0, 0, 0, 0.8); border: 2px solid #b9615f; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 600px; width: 100%; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);">
+                <h2 style="color: #7ce7ed; margin-bottom: 1rem;">Ошибка</h2>
+                <p style="color: #fff;">@Model.Error</p>
+            </div>
+        }
+    </div>
+</body>
+</html> 

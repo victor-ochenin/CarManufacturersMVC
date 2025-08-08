@@ -1,0 +1,46 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarManufacturersMVC.Pages.Cars.DeleteModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Удаление автомобиля</h1>
+        @if (Model.Error == null)
+        {
+            <div class="delete-form" style="background: rgba(0, 0, 0, 0.8); border: 2px solid #b9615f; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 600px; width: 100%; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);">
+                <h2 style="color: #7ce7ed; margin-bottom: 1rem;">Подтверждение удаления</h2>
+                <p style="color: #fff; margin-bottom: 2rem;">Вы действительно хотите удалить автомобиль '@Model.Car!.Name'?</p>
+                
+                <form method="post" action="" id="delete-form">
+                    <input type="number" name="id" hidden value="@Model.Car!.Id" />
+                </form>
+            </div>
+            <div class="nav-links">
+                <button type="submit" form="delete-form" class="cybr-btn cybr-btn-medium">
+                    Да, удалить
+                    <span aria-hidden class="cybr-btn__glitch">Да, удалить</span>
+                </button>
+                
+                <a asp-page="/Cars/Index" class="cybr-btn cybr-btn-small">
+                    Отмена
+                    <span aria-hidden class="cybr-btn__glitch">Отмена</span>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="error-form" style="background: rgba(0, 0, 0, 0.8); border: 2px solid #b9615f; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 600px; width: 100%; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);">
+                <h2 style="color: #7ce7ed; margin-bottom: 1rem;">Ошибка</h2>
+                <p style="color: #fff;">@Model.Error</p>
+            </div>
+        }
+    </div>
+</body>
+</html> 

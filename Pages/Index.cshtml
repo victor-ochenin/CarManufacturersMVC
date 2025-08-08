@@ -1,0 +1,33 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarManufacturersMVC.Pages.IndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+</head>
+<body>
+    <div class="main-container">
+        <div class="logo-container">
+            <img src="~/images/auto_fixer_logo.png" alt="Car Manufacturers MVC" class="main-logo" />
+        </div>
+        
+        <div class="main-nav-links" style="display: flex; flex-direction: column; gap: 2rem; align-items: center; margin: -50px 0 0 0;">
+            <a asp-page="/Manufacturers/Index" class="cybr-btn">
+                Производители
+                <span aria-hidden class="cybr-btn__glitch">Производители</span>
+                <span aria-hidden class="cybr-btn__tag">MANUF</span>
+            </a>
+            
+            <a asp-page="/Cars/Index" class="cybr-btn">
+                Автомобили
+                <span aria-hidden class="cybr-btn__glitch">Автомобили</span>
+                <span aria-hidden class="cybr-btn__tag">CARS</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

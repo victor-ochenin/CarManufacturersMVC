@@ -1,0 +1,74 @@
+@page
+@using CarManufacturersMVC.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarManufacturersMVC.Pages.Cars.IndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Автомобили</h1>
+
+        <table class="cyber-table cars-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Класс</th>
+                    <th>Модель</th>
+                    <th>Страна</th>
+                    <th>Годы производства</th>
+                    <th>Производитель</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Car car in Model.Cars) {
+                    <tr data-item-id="@car.Id">
+                        <td>@car.Id</td>
+                        <td>
+                            <a asp-page="/Cars/Details" asp-route-id="@car.Id">@car.Name</a>
+                        </td>
+                        <td>@car.Class</td>
+                        <td>@car.Model</td>
+                        <td>@car.Country</td>
+                        <td>@car.ProductionYears</td>
+                        <td>@car.Manufacturer?.Name</td>
+                    </tr>
+                    <tr class="action-panel-row" data-item-id="@car.Id" style="display: none;">
+                        <td colspan="7">
+                            <div class="action-panel">
+                                <div class="action-buttons">
+                                    <a asp-page="/Cars/Details" asp-route-id="@car.Id" class="action-btn">Детали</a>
+                                    <a asp-page="/Cars/Delete" asp-route-id="@car.Id" class="action-btn">Удалить</a>
+                                    <a asp-page="/Cars/Edit" asp-route-id="@car.Id" class="action-btn">Изменить</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="nav-links">
+            <a asp-page="/Cars/Create" class="cybr-btn">
+                Добавить автомобиль
+                <span aria-hidden class="cybr-btn__glitch">Добавить автомобиль</span>
+                <span aria-hidden class="cybr-btn__tag">NEW</span>
+            </a>
+            
+            <a asp-page="/Index" class="cybr-btn">
+                На главную
+                <span aria-hidden class="cybr-btn__glitch">На главную</span>
+                <span aria-hidden class="cybr-btn__tag">HOME</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="~/js/context-menu.js"></script>
+</body>
+</html> 

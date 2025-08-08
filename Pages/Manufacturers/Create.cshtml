@@ -1,0 +1,53 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarManufacturersMVC.Pages.Manufacturers.CreateModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Добавить производителя</h1>
+
+        @if (Model.Error == null) {
+            <div class="create-form" style="background: rgba(0, 0, 0, 0.8); border: 2px solid #b9615f; border-radius: 8px; padding: 2rem; margin: 2rem auto; width: 800px; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);">
+                <form method="post" action="" id="create-form">
+                    <div class="form-group">
+                        <label for="name">Название производителя:</label>
+                        <input type="text" id="name" name="name" minlength="1" maxlength="100" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Страна:</label>
+                        <input type="text" id="country" name="country" maxlength="100" required />
+                    </div>
+                </form>
+            </div>
+
+            <div class="nav-links">
+                <button type="submit" form="create-form" class="cybr-btn">
+                    Добавить
+                    <span aria-hidden class="cybr-btn__glitch">Добавить</span>
+                    <span aria-hidden class="cybr-btn__tag">ADD</span>
+                </button>
+                
+                <a asp-page="/Manufacturers/Index" class="cybr-btn">
+                    Вернуться к списку
+                    <span aria-hidden class="cybr-btn__glitch">Вернуться к списку</span>
+                    <span aria-hidden class="cybr-btn__tag">BACK</span>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="error-form" style="background: rgba(0, 0, 0, 0.8); border: 2px solid #b9615f; border-radius: 8px; padding: 2rem; margin: 2rem auto; max-width: 600px; width: 100%; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);">
+                <h2 style="color: #7ce7ed; margin-bottom: 1rem;">Ошибка</h2>
+                <p style="color: #fff;">@Model.Error</p>
+            </div>
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using CarManufacturersMVC.Models
+@model CarManufacturersMVC.Pages.Manufacturers.IndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Производители автомобилей</h1>
+
+        <table class="cyber-table manufacturers-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Страна</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Manufacturer manufacturer in Model.Manufacturers) {
+                    <tr data-item-id="@manufacturer.Id">
+                        <td>@manufacturer.Id</td>
+                        <td>@manufacturer.Name</td>
+                        <td>@manufacturer.Country</td>
+                    </tr>
+                    <tr class="action-panel-row" data-item-id="@manufacturer.Id" style="display: none;">
+                        <td colspan="3">
+                            <div class="action-panel">
+                                <div class="action-buttons">
+                                    <a asp-page="/Manufacturers/Delete" asp-route-id="@manufacturer.Id" class="action-btn">Удалить</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="nav-links">
+            <a asp-page="/Manufacturers/Create" class="cybr-btn">
+                Добавить производителя
+                <span aria-hidden class="cybr-btn__glitch">Добавить производителя</span>
+                <span aria-hidden class="cybr-btn__tag">NEW</span>
+            </a>
+            
+            <a asp-page="/Index" class="cybr-btn">
+                На главную
+                <span aria-hidden class="cybr-btn__glitch">На главную</span>
+                <span aria-hidden class="cybr-btn__tag">HOME</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="~/js/context-menu.js"></script>
+</body>
+</html> 

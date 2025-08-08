@@ -1,0 +1,70 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CarManufacturersMVC.Pages.Cars.CreateModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarManufacturersMVC</title>
+    <link rel="stylesheet" href="~/css/cyberpunk.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Добавить новый автомобиль</h1>
+
+        <div class="car-form" style="background: rgba(0, 0, 0, 0.8); border: 2px solid #b9615f; border-radius: 8px; padding: 2rem; margin: 2rem auto; width: 800px; box-shadow: 0 0 20px rgba(185, 97, 95, 0.3);">
+            <form method="post" action="" id="car-form">
+                <div class="form-group">
+                    <label for="name">Название:</label>
+                    <input type="text" id="name" name="name" minlength="1" maxlength="200" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="class">Класс:</label>
+                    <input type="text" id="class" name="class" minlength="1" maxlength="100" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="model">Модель:</label>
+                    <input type="text" id="model" name="model" minlength="1" maxlength="100" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Страна:</label>
+                    <input type="text" id="country" name="country" minlength="1" maxlength="100" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="productionYears">Годы производства:</label>
+                    <input type="text" id="productionYears" name="productionYears" minlength="1" maxlength="50" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="photoUrl">URL фото:</label>
+                    <input type="text" id="photoUrl" name="photoUrl" maxlength="500" />
+                </div>
+
+                <div class="form-group">
+                    <label for="manufacturer">Производитель:</label>
+                    <select id="manufacturer" name="manufacturerId" asp-items="Model.ManufacturersOptions"></select>
+                </div>
+            </form>
+        </div>
+
+        <div class="nav-links">
+            <button type="submit" form="car-form" class="cybr-btn">
+                Добавить
+                <span aria-hidden class="cybr-btn__glitch">Добавить</span>
+                <span aria-hidden class="cybr-btn__tag">ADD</span>
+            </button>
+            
+            <a asp-page="/Cars/Index" class="cybr-btn">
+                Вернуться к списку
+                <span aria-hidden class="cybr-btn__glitch">Вернуться к списку</span>
+                <span aria-hidden class="cybr-btn__tag">BACK</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 
