@@ -17,26 +17,31 @@ namespace CarManufacturersMVC.Data
                 {
                     Name = "Rayfield",
                     Country = "Соединённое Королевство",
+                    PhotoUrl = "images/photo_manufacturers/rayfield.jpg"
                 },
                 new Manufacturer
                 {
                     Name = "Quadra",
                     Country = "НСША",
+                    PhotoUrl = "images/photo_manufacturers/quadra.jpg"
                 },
                 new Manufacturer
                 {
                     Name = "Mizutani",
                     Country = "Япония",
+                    PhotoUrl = "images/photo_manufacturers/mizutani.jpg"
                 },
                 new Manufacturer
                 {
                     Name = "Archer",
                     Country = "Китай",
+                    PhotoUrl = "images/photo_manufacturers/archer.jpg"
                 },
                 new Manufacturer
                 {
                     Name = "Villefort",
                     Country = "НСША",
+                    PhotoUrl = "images/photo_manufacturers/villefort.jpg"
                 }
             };
 

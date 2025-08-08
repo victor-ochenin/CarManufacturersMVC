@@ -26,14 +26,18 @@
                 @foreach (Manufacturer manufacturer in Model.Manufacturers) {
                     <tr data-item-id="@manufacturer.Id">
                         <td>@manufacturer.Id</td>
-                        <td>@manufacturer.Name</td>
+                        <td>
+                            <a asp-page="/Manufacturers/Details" asp-route-id="@manufacturer.Id">@manufacturer.Name</a>
+                        </td>
                         <td>@manufacturer.Country</td>
                     </tr>
                     <tr class="action-panel-row" data-item-id="@manufacturer.Id" style="display: none;">
-                        <td colspan="3">
+                        <td colspan="4">
                             <div class="action-panel">
                                 <div class="action-buttons">
+                                    <a asp-page="/Manufacturers/Details" asp-route-id="@manufacturer.Id" class="action-btn">Детали</a>
                                     <a asp-page="/Manufacturers/Delete" asp-route-id="@manufacturer.Id" class="action-btn">Удалить</a>
+                                    <a asp-page="/Manufacturers/Edit" asp-route-id="@manufacturer.Id" class="action-btn">Изменить</a>
                                 </div>
                             </div>
                         </td>

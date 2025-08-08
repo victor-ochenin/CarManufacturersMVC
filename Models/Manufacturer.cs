@@ -13,6 +13,9 @@ namespace CarManufacturersMVC.Models
         [Required]
         [StringLength(100)]
         public string Country { get; set; } = string.Empty;
+
+        [StringLength(500)]
+        public string? PhotoUrl { get; set; }
         
         public ICollection<Car> Cars { get; set; } = new List<Car>();
     }

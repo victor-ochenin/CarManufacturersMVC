@@ -16,7 +16,7 @@ namespace CarManufacturersMVC.Pages.Manufacturers
 
         public string? Error { get; private set; }
 
-        public async Task<IActionResult> OnPost(string name, string country)
+        public async Task<IActionResult> OnPost(string name, string country, string? photoUrl)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(country))
             {
@@ -26,7 +26,8 @@ namespace CarManufacturersMVC.Pages.Manufacturers
 
             Manufacturer newManufacturer = new Manufacturer() { 
                 Name = name, 
-                Country = country 
+                Country = country,
+                PhotoUrl = string.IsNullOrWhiteSpace(photoUrl) ? null : photoUrl
             };
             
             await _db.Manufacturers.AddAsync(newManufacturer);
