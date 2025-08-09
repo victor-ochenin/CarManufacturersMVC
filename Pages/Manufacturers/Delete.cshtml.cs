@@ -47,13 +47,11 @@ namespace CarManufacturersMVC.Pages.Manufacturers
                 return Page();
             }
 
-            // Удаляем связанные автомобили
             if (Manufacturer.Cars.Any())
             {
                 _db.Cars.RemoveRange(Manufacturer.Cars);
             }
 
-            // Удаляем производителя
             _db.Manufacturers.Remove(Manufacturer);
             await _db.SaveChangesAsync();
 

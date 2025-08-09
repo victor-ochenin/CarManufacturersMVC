@@ -247,17 +247,41 @@ public static void Initialize(ApplicationDbContext context)
 
 # Тесты
 
-## 1. Index.cshtml (основная страница)
+## Index.cshtml (основная страница приложения)
 
-
-<div align="center">
-  <video src="wwwroot/images/photo_for_README/Main_page.mp4" controls style="max-width: 100%; height: auto;"></video>
-  
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/Main_page.gif" alt="Демонстрация главной страницы" style="max-width: 100%; height: auto;" />
 </div>
 
+## Manufacturers
 
+### 1. Index.cshtml (основная страница)
 
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/index_manuf.gif" alt="Список производителей и панель действий" style="max-width: 100%; height: auto;" />
+  </div>
 
+### 2. Details.cshtml (детали)
 
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/details_manuf.gif" alt="Детали производителя с фото" style="max-width: 100%; height: auto;" />
+</div>
 
+### 3. Create.cshtml (создание)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/create_manuf.gif" alt="Создание производителя" style="max-width: 100%; height: auto;" />
+</div>
+
+### 4. Edit.cshtml (редактирование)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/edit_manuf.gif" alt="Редактирование производителя и предпросмотр фото" style="max-width: 100%; height: auto;" />
+</div>
+
+### 5. Delete.cshtml (удаление)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/delete_manuf.gif" alt="Удаление производителя с предупреждением о связанных автомобилях" style="max-width: 100%; height: auto;" />
+</div>
 
