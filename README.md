@@ -27,9 +27,8 @@ P.s: У меня новая БД.
 Сделано по архитектуре последней версии котора была на паре, ну и собственна которая дана в дз. (прикрепил бы здесь ссылку на ваш исходник, но мне впадлу искать, если че в файле домашки оно есть)
 
 Было доработано и сделано:
-1. Сделана выпадающая менюшка с действиями над конкретным производителем/машиной. (для производителя - удаление; для машины - делалиб редактирование, удаление)
-2. Добавление производителя вынесено на отдельную страницу для удобства.
-3. Сделаны стили в виде киберпанка, добавлены анимации кнопок, фото машин.
+1. Сделана выпадающая менюшка с действиями над конкретным производителем/машиной. 
+2. Сделаны стили в виде киберпанка, добавлены анимации кнопок, фото машин.
 
 Ну и впринципе все. 
 
@@ -39,117 +38,12 @@ P.s: У меня новая БД.
 <br>
 
 # Папки
-## Data (Под ней же миграции, но это стандарт их указывать не буду, но упомяну)
-  - `ApplicationDbContext.cs`: контекст EF Core с наборами данных. - Стандарт.
-
-  - `DbInitializer.cs`: (опционально) инициализация/заполнение БД. (Вызов закомментирован в `Program.cs`.) - А вот это я вам покажу. 
-
-```csharp
-public static void Initialize(ApplicationDbContext context)
-{
-    if (context.Manufacturers.Any())
-    {
-        return;
-    }
-
-    var manufacturers = new Manufacturer[]
-    {
-        new Manufacturer
-        {
-            Name = "Rayfield",
-            Country = "Соединённое Королевство",
-        },
-        new Manufacturer
-        {
-            Name = "Quadra",
-            Country = "НСША",
-        },
-        new Manufacturer
-        {
-            Name = "Mizutani",
-            Country = "Япония",
-        },
-        new Manufacturer
-        {
-            Name = "Archer",
-            Country = "Китай",
-        },
-        new Manufacturer
-        {
-            Name = "Villefort",
-            Country = "НСША",
-        }
-    };
-
-    context.Manufacturers.AddRange(manufacturers);
-    context.SaveChanges();
-
-    var cars = new Car[]
-    {
-        new Car
-        {
-            Name = "Rayfield Caliburn",
-            Class = "Гиперкар",
-            Model = "Caliburn",
-            Country = "Соединённое Королевство",
-            ProductionYears = "2070",
-            PhotoUrl = "images/photo_cars/rayfield_caliburn.jpg",
-            ManufacturerId = manufacturers[0].Id
-        },
-        new Car
-        {
-            Name = "Quadra Type-66 "Cthulhu"",
-            Class = "Спортивный автомобиль",
-            Model = "Type-66",
-            Country = "НСША",
-            ProductionYears = "2070-е",
-            PhotoUrl = "images/photo_cars/quadra_type66_cthulhu.jpg",
-            ManufacturerId = manufacturers[1].Id
-        },
-        new Car
-        {
-            Name = "Mizutani Shion "Coyote"",
-            Class = "Спортивный автомобиль",
-            Model = "Shion",
-            Country = "Япония",
-            ProductionYears = "2060-е",
-            PhotoUrl = "images/photo_cars/mizutani_shion_coyote.jpg",
-            ManufacturerId = manufacturers[2].Id
-        },
-        new Car
-        {
-            Name = "Archer Quartz "Bandit"",
-            Class = "Спортивный автомобиль",
-            Model = "Quartz",
-            Country = "Китай",
-            ProductionYears = "2041–2077",
-            PhotoUrl = "images/photo_cars/archer_quartz_bandit.jpg",
-            ManufacturerId = manufacturers[3].Id
-        },
-        new Car
-        {
-            Name = "Villefort Alvarado V4F 570 "Delegate"",
-            Class = "Лимузин",
-            Model = "Alvarado",
-            Country = "НСША",
-            ProductionYears = "2044",
-            PhotoUrl = "images/photo_cars/villefort_alvarado_delegate.jpg",
-            ManufacturerId = manufacturers[4].Id
-        }
-    };
-
-    context.Cars.AddRange(cars);
-    context.SaveChanges();
-}
-```
-
-Покать решил, чтоб просто понимали что за данные. 
 
 ## Models
-  - `Car.cs`, `Manufacturer.cs`: модели (Машины и производители). - их я тоже покажу чтобы понимали че за поля, хотя из инициализатора я думаю вы уже все увидели. 
+  - `Car.cs`, `Manufacturer.cs`: модели (Машины и производители). - их я тоже покажу чтобы понимали че за поля. 
 
 ```csharp
-public class Manufacturer
+    public class Manufacturer
     {
         public int Id { get; set; }
         
@@ -160,6 +54,9 @@ public class Manufacturer
         [Required]
         [StringLength(100)]
         public string Country { get; set; } = string.Empty;
+
+        [StringLength(500)]
+        public string? PhotoUrl { get; set; }
         
         public ICollection<Car> Cars { get; set; } = new List<Car>();
     }
@@ -199,20 +96,131 @@ public class Car
     }
 ```
 
+## Data (Под ней же миграции, но это стандарт их указывать не буду, но упомяну)
+  - `ApplicationDbContext.cs`: контекст EF Core с наборами данных. - Стандарт.
+
+  - `DbInitializer.cs`: (опционально) инициализация/заполнение БД. (Вызов закомментирован в `Program.cs`.) - А вот это я вам покажу. 
+
+```csharp
+public static void Initialize(ApplicationDbContext context)
+        {
+            if (context.Manufacturers.Any())
+            {
+                return;
+            }
+
+            var manufacturers = new Manufacturer[]
+            {
+                new Manufacturer
+                {
+                    Name = "Rayfield",
+                    Country = "Соединённое Королевство",
+                    PhotoUrl = "images/photo_manufacturers/rayfield.jpg"
+                },
+                new Manufacturer
+                {
+                    Name = "Quadra",
+                    Country = "НСША",
+                    PhotoUrl = "images/photo_manufacturers/quadra.jpg"
+                },
+                new Manufacturer
+                {
+                    Name = "Mizutani",
+                    Country = "Япония",
+                    PhotoUrl = "images/photo_manufacturers/mizutani.jpg"
+                },
+                new Manufacturer
+                {
+                    Name = "Archer",
+                    Country = "Китай",
+                    PhotoUrl = "images/photo_manufacturers/archer.jpg"
+                },
+                new Manufacturer
+                {
+                    Name = "Villefort",
+                    Country = "НСША",
+                    PhotoUrl = "images/photo_manufacturers/villefort.jpg"
+                }
+            };
+
+            context.Manufacturers.AddRange(manufacturers);
+            context.SaveChanges();
+
+            var cars = new Car[]
+            {
+                new Car
+                {
+                    Name = "Rayfield Caliburn",
+                    Class = "Гиперкар",
+                    Model = "Caliburn",
+                    Country = "Соединённое Королевство",
+                    ProductionYears = "2070",
+                    PhotoUrl = "images/photo_cars/rayfield_caliburn.jpg",
+                    ManufacturerId = manufacturers[0].Id
+                },
+                new Car
+                {
+                    Name = "Quadra Type-66 \"Cthulhu\"",
+                    Class = "Спортивный автомобиль",
+                    Model = "Type-66",
+                    Country = "НСША",
+                    ProductionYears = "2070-е",
+                    PhotoUrl = "images/photo_cars/quadra_type66_cthulhu.jpg",
+                    ManufacturerId = manufacturers[1].Id
+                },
+                new Car
+                {
+                    Name = "Mizutani Shion \"Coyote\"",
+                    Class = "Спортивный автомобиль",
+                    Model = "Shion",
+                    Country = "Япония",
+                    ProductionYears = "2060-е",
+                    PhotoUrl = "images/photo_cars/mizutani_shion_coyote.jpg",
+                    ManufacturerId = manufacturers[2].Id
+                },
+                new Car
+                {
+                    Name = "Archer Quartz \"Bandit\"",
+                    Class = "Спортивный автомобиль",
+                    Model = "Quartz",
+                    Country = "Китай",
+                    ProductionYears = "2041–2077",
+                    PhotoUrl = "images/photo_cars/archer_quartz_bandit.jpg",
+                    ManufacturerId = manufacturers[3].Id
+                },
+                new Car
+                {
+                    Name = "Villefort Alvarado V4F 570 \"Delegate\"",
+                    Class = "Лимузин",
+                    Model = "Alvarado",
+                    Country = "НСША",
+                    ProductionYears = "2044",
+                    PhotoUrl = "images/photo_cars/villefort_alvarado_delegate.jpg",
+                    ManufacturerId = manufacturers[4].Id
+                }
+            };
+
+            context.Cars.AddRange(cars);
+            context.SaveChanges();
+        }
+```
+
+Покать решил, чтоб просто понимали что за данные. 
+
 ## Api
   - `CarsController.cs`, `ManufacturersController.cs`: API-контроллеры для CRUD-операций.
-  - `Messages.cs`: вспомогательные сообщения/константы для API.
+  - `Messages.cs`: вспомогательные recordы  для API.
 
 Тут ниче не менял с прошлой версии.
 
 ## Pages (Razor Pages UI)
   - `Cars/`: страницы `Index`, `Create`, `Edit`, `Delete`, `Details` для автомобилей.
-  - `Manufacturers/`: страницы `Index`, `Create`, `Delete` для производителей.
+  - `Manufacturers/`: страницы `Index`, `Create`, `Edit`, `Delete`, `Details` для производителей.
   - `Index.cshtml`: начальная страница приложения.
 
 Ну тут даже не знаю стоит ли что-то показывать и хвастаться. cshtml.cs уж точно нет, а вот cshtml...
 
-Я ваш пощажу. Сами посмотрите на тестах как это выглядит.
+Я вас пощажу. Сами посмотрите на тестах как это выглядит.
 
 ## wwwroot (статические файлы)
   - `css/cyberpunk.css`: стили.
@@ -235,7 +243,20 @@ public class Car
 
 Скрипты под выпадание менюшки если что. Вынес в отдельный файл так как `Cars/Index.cshtml` и `Manufacturers/Index.cshtml` используют ее.
 
+<br>
+
 # Тесты
+
+## 1. Index.cshtml (основная страница)
+
+
+<div align="center">
+  <video src="wwwroot/images/photo_for_README/Main_page.mp4" controls style="max-width: 100%; height: auto;"></video>
+  
+</div>
+
+
+
 
 
 
