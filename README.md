@@ -1,4 +1,22 @@
 # CarManufacturersMVC (Auto_Fixer_data) — Веб-MVC приложение для управления автомобилями и производителями в стиле киберпанк.
+<a id="top"></a>
+
+<div style="position: fixed; inset: 0; z-index: -1; background: linear-gradient(180deg, #321318 0%, #080d11 50%); background-attachment: fixed;"></div>
+
+<nav aria-label="Оглавление" style="position: fixed; top: 120px; right: 20px; width: 260px; max-height: 70vh; overflow: auto; padding: 12px 16px; background: rgba(0,0,0,0.6); border: 2px solid #b9615f; border-radius: 8px; box-shadow: 0 0 20px rgba(185,97,95,0.3);">
+  <div style="color:#7ce7ed; font-weight:700; margin-bottom:8px; letter-spacing:1px;">Оглавление</div>
+  <ul style="list-style:none; padding-left:0; margin:0; line-height:1.7;">
+    <li><a href="#top" style="color:#7ce7ed; text-decoration:none;">Вверх</a></li>
+    <li><a href="#assignment" style="color:#7ce7ed; text-decoration:none;">Выданное задание</a></li>
+    <li><a href="#folders" style="color:#7ce7ed; text-decoration:none;">Папки</a></li>
+    <li><a href="#wwwroot" style="color:#7ce7ed; text-decoration:none;">wwwroot</a></li>
+    <li><a href="#tests" style="color:#7ce7ed; text-decoration:none;">Тесты</a></li>
+    <li><a href="#manufacturers" style="color:#7ce7ed; text-decoration:none;">Manufacturers</a></li>
+    <li><a href="#cars" style="color:#7ce7ed; text-decoration:none;">Cars</a></li>
+    <li><a href="#errors" style="color:#7ce7ed; text-decoration:none;">Ошибки</a></li>
+    <li><a href="#run" style="color:#7ce7ed; text-decoration:none;">Запуск</a></li>
+  </ul>
+</nav>
 
 И снова здраствуйте дорогой, любимый, уважаемый и можно продолжать до бесконечности Черемнов Николай!
 
@@ -16,6 +34,7 @@
   <img src="wwwroot/images/photo_for_README/loli.gif" alt="Лоли" style="max-width: 100%; height: auto;" />
 </div>
 
+<a id="assignment"></a>
 ## Выданное задание (Задание 16):
 
 ![Задание](wwwroot/images/photo_for_README/DZ.png)
@@ -37,6 +56,7 @@ P.s: У меня новая БД.
 <br>
 <br>
 
+<a id="folders"></a>
 # Папки
 
 ## Models
@@ -207,6 +227,10 @@ public static void Initialize(ApplicationDbContext context)
 
 Покать решил, чтоб просто понимали что за данные. 
 
+Брал отсюда и структуру и варианты: https://www.xgamers.ru/article/transportnye-sredstva-v-cyberpunk-207-polny-spisok-avtomobiley-i-mototsiklov-luchshiy-transport/
+
+https://cyberpunk.fandom.com/wiki/Cyberpunk_2077_Vehicles
+
 ## Api
   - `CarsController.cs`, `ManufacturersController.cs`: API-контроллеры для CRUD-операций.
   - `Messages.cs`: вспомогательные recordы  для API.
@@ -222,6 +246,7 @@ public static void Initialize(ApplicationDbContext context)
 
 Я вас пощажу. Сами посмотрите на тестах как это выглядит.
 
+<a id="wwwroot"></a>
 ## wwwroot (статические файлы)
   - `css/cyberpunk.css`: стили.
   - `js/context-menu.js`: скрипты.
@@ -245,7 +270,8 @@ public static void Initialize(ApplicationDbContext context)
 
 <br>
 
-# Тесты
+<a id="tests"></a>
+# Тесты (Демонстрация работы)
 
 ## Index.cshtml (основная страница приложения)
 
@@ -253,6 +279,7 @@ public static void Initialize(ApplicationDbContext context)
   <img src="wwwroot/images/photo_for_README/Main_page.gif" alt="Демонстрация главной страницы" style="max-width: 100%; height: auto;" />
 </div>
 
+<a id="manufacturers"></a>
 ## Manufacturers
 
 ### 1. Index.cshtml (основная страница)
@@ -285,3 +312,64 @@ public static void Initialize(ApplicationDbContext context)
   <img src="wwwroot/images/photo_for_README/delete_manuf.gif" alt="Удаление производителя с предупреждением о связанных автомобилях" style="max-width: 100%; height: auto;" />
 </div>
 
+
+<a id="cars"></a>
+## Cars
+
+### 1. Index.cshtml (основная страница)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/index_cars.gif" alt="Список автомобилей и панель действий" style="max-width: 100%; height: auto;" />
+</div>
+
+### 2. Details.cshtml (детали)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/details_cars.gif" alt="Детали автомобиля с фото и производителем" style="max-width: 100%; height: auto;" />
+</div>
+
+### 3. Create.cshtml (создание)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/create_cars.gif" alt="Создание автомобиля" style="max-width: 100%; height: auto;" />
+</div>
+
+### 4. Edit.cshtml (редактирование)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/edit_cars.gif" alt="Редактирование автомобиля и предпросмотр фото" style="max-width: 100%; height: auto;" />
+</div>
+
+### 5. Delete.cshtml (удаление)
+
+<div align="left">
+  <img src="wwwroot/images/photo_for_README/delete_cars.gif" alt="Удаление автомобиля" style="max-width: 100%; height: auto;" />
+</div>
+
+<a id="errors"></a>
+## Ошибочные/исключительные случаи и обработка
+
+### По API:
+
+Все те же случаи проработаны как и в прошлом проекте. 
+
+### По UI: 
+
+- **Неизвестный id**: для `Cars/Details`, `Cars/Edit`, `Cars/Delete` при несуществующем id показывается оформленная панель с сообщением об ошибке. Для производителей аналогично; на `Manufacturers/Delete` есть предупреждение, если есть связанные авто.
+- **Валидация форм**: все обязательные поля помечены `required` и с ограничениями `minlength`/`maxlength`. В `Create/Edit` у машин есть выбор производителя из списка.
+- **Фото**: в `Details` фото рендерится только если указан `PhotoUrl`. В `Edit` есть живой предпросмотр фото; при битой ссылке показывается текст «Фото не найдено».
+
+### Отличия UI и API при удалении производителей
+
+- **UI (Razor Page `Manufacturers/Delete`)**: при подтверждении удаления сначала удаляет связанные авто, затем производителя (каскад вручную).
+- **API `DELETE /api/manufacturer/{id}`**: удаление запрещено, если есть связанные авто — вернётся 400.
+
+<a id="run"></a>
+## Как запустить локально
+
+1) Проверьте `DefaultConnection` в `appsettings.json`.
+2) Применить миграции: в папке `CarManufacturersMVC` выполнить:
+   - `dotnet ef database update`
+3) Запуск:
+   - `dotnet run` и открыть `http://localhost:5000`.
+4) Опционально — заполнение БД демо-данными: раскомментировать блок вызова `DbInitializer.Initialize(...)` в `Program.cs` и перезапустить.
