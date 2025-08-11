@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CarManufacturersMVC — Документация</title>
+  <link rel="stylesheet" href="assets/css/custom.css" />
+</head>
+<body>
+  <div class="bg-fixed"></div>
+
+  <nav class="toc" aria-label="Оглавление">
+    <div class="toc-title">Оглавление</div>
+    <ul>
+      <li><a href="#top">Вверх</a></li>
+      <li><a href="#assignment">Выданное задание</a></li>
+      <li><a href="#folders">Папки</a></li>
+      <li><a href="#wwwroot">wwwroot</a></li>
+      <li><a href="#errors">Ошибки</a></li>
+      <li><a href="#run">Запуск</a></li>
+    </ul>
+  </nav>
+
+  <main class="container" id="top">
+    <h1>CarManufacturersMVC — Документация</h1>
+
+    <h2 id="assignment">Выданное задание</h2>
+    <p><img src="images/DZ.png" alt="Задание" style="max-width:100%;height:auto" /></p>
+
+    <h2 id="folders">Папки</h2>
+
+    <h3>Models</h3>
+    <p>Модели данных: <code>Manufacturer</code>, <code>Car</code>.</p>
+    <pre><code class="language-csharp">public class Manufacturer
+{
+    public int Id { get; set; }
+    [Required]
+    [StringLength(100)]
+    public string Name { get; set; } = string.Empty;
+    [Required]
+    [StringLength(100)]
+    public string Country { get; set; } = string.Empty;
+    [StringLength(500)]
+    public string? PhotoUrl { get; set; }
+    public ICollection&lt;Car&gt; Cars { get; set; } = new List&lt;Car&gt;();
+}
+
+public class Car
+{
+    public int Id { get; set; }
+    [Required]
+    [StringLength(200)]
+    public string Name { get; set; } = string.Empty;
+    [Required]
+    [StringLength(100)]
+    public string Class { get; set; } = string.Empty;
+    [Required]
+    [StringLength(100)]
+    public string Model { get; set; } = string.Empty;
+    [Required]
+    [StringLength(100)]
+    public string Country { get; set; } = string.Empty;
+    [Required]
+    [StringLength(50)]
+    public string ProductionYears { get; set; } = string.Empty;
+    [StringLength(500)]
+    public string? PhotoUrl { get; set; }
+    public int ManufacturerId { get; set; }
+    public Manufacturer? Manufacturer { get; set; }
+}
+</code></pre>
+
+    <h3>Data</h3>
+    <p>
+      <code>ApplicationDbContext</code> с индексами и <code>DbInitializer</code> для демонстрационного заполнения БД.
+      Источники транспортных средств: <a href="https://www.xgamers.ru/article/transportnye-sredstva-v-cyberpunk-207-polny-spisok-avtomobiley-i-mototsiklov-luchshiy-transport/" target="_blank" rel="noopener">xgamers</a>,
+      <a href="https://cyberpunk.fandom.com/wiki/Cyberpunk_2077_Vehicles" target="_blank" rel="noopener">CP2077 wiki</a>.
+    </p>
+    <details>
+      <summary>Показать пример DbInitializer</summary>
+      <pre><code class="language-csharp">public static void Initialize(ApplicationDbContext context)
+{
+    if (context.Manufacturers.Any()) return;
+    var manufacturers = new Manufacturer[] { /* Rayfield, Quadra, Mizutani, Archer, Villefort */ };
+    context.Manufacturers.AddRange(manufacturers);
+    context.SaveChanges();
+    var cars = new Car[] { /* Caliburn, Type-66 Cthulhu, Shion Coyote, Quartz Bandit, Alvarado Delegate */ };
+    context.Cars.AddRange(cars);
+    context.SaveChanges();
+}
+</code></pre>
+    </details>
+
+    <h3>Api</h3>
+    <ul>
+      <li>Производители: <code>GET/POST/PATCH/DELETE /api/manufacturer</code> (валидация, 404/400, защита удаления при связанных авто).</li>
+      <li>Авто: <code>GET/POST/PATCH/DELETE /api/car</code> (валидация полей, проверка существования производителя).</li>
+    </ul>
+
+    <h3>Pages</h3>
+    <ul>
+      <li><code>Cars/</code> и <code>Manufacturers/</code>: <code>Index</code>, <code>Create</code>, <code>Edit</code>, <code>Delete</code>, <code>Details</code>.</li>
+      <li>Выпадающая панель действий, кнопки с глич‑эффектом, предпросмотр фото.</li>
+    </ul>
+
+    <h2 id="wwwroot">wwwroot</h2>
+    <p>
+      Стили (<code>cyberpunk.css</code>), скрипты (<code>context-menu.js</code>), изображения. Стиль и анимации кнопок вдохновлены
+      <a href="https://practicaldev-herokuapp-com.global.ssl.fastly.net/jh3y/css-cyberpunk-2077-buttons-taking-your-css-to-night-city-43l0" target="_blank" rel="noopener">этой статьёй</a>.
+    </p>
+    <p><img src="images/interface.jpg" alt="Интерфейс" style="max-width:100%;height:auto" /></p>
+
+    <h2 id="errors">Ошибки и обработка</h2>
+    <ul>
+      <li>UI: неизвестный id → показывается оформленная ошибка (Cars/Details, Edit, Delete; Manufacturers тоже).</li>
+      <li>UI: required/maxlength/preview у полей.</li>
+      <li>API: 400/404 для машин и производителей согласно контроллерам.</li>
+    </ul>
+
+    <h2>Отличия UI и API при удалении производителей</h2>
+    <ul>
+      <li>UI (Razor Page Delete): сначала удаляет связанные авто, затем производителя.</li>
+      <li>API DELETE /api/manufacturer/{id}: вернёт 400, если есть связанные авто (защита).</li>
+    </ul>
+
+    <h2 id="run">Как запустить локально</h2>
+    <ol>
+      <li>Проверьте DefaultConnection в appsettings.json.</li>
+      <li>dotnet ef database update</li>
+      <li>dotnet run → http://localhost:5000</li>
+    </ol>
+  </main>
+</body>
+</html>
+
+
